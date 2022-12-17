@@ -44,7 +44,7 @@ export class WebTester {
         // } catch (e) {
         //     throw "webdriver in use"
         // }
-        this.server = fork(path.resolve(__dirname, '../lib/webServer'));
+        this.server = fork(path.resolve(__dirname, './webServer'), {execArgv: ['-r', 'ts-node/register']});
         this.driver = new webdriver.Builder()
                         .forBrowser('firefox')
                         .setFirefoxOptions(options)
