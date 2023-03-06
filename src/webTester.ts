@@ -44,7 +44,7 @@ export class WebTester {
         // } catch (e) {
         //     throw "webdriver in use"
         // }
-        this.server = fork(path.resolve(__dirname, './webServer'), {execArgv: ['-r', 'ts-node/register']});
+        this.server = fork(path.resolve(__dirname, '../src/webServer'), {execArgv: ['-r', 'ts-node/register']});
         this.driver = new webdriver.Builder()
                         .forBrowser('firefox')
                         .setFirefoxOptions(options)
@@ -66,7 +66,6 @@ export class WebTester {
                 } catch (e) {
                 }
                 fs.copyFileSync(`${this.testConfig.testsLocation}/${testFile}`, targetLocation)
-                
             })
         }
         let allResults: Result[] = []

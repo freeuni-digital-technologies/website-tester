@@ -1,17 +1,23 @@
 import { WebTester} from "./webTester";
 import { program } from 'commander'
+import * as path from "path";
 
 program
     .requiredOption('-t, --test-file <testFile>', 'test file')
     .requiredOption('-f, --file <file>', 'submission file')
 program.parse(process.argv)
 
-const tester = new WebTester({targetFiles: ['index.html'], testsLocation: ''})
-const res = tester.testSubmission(program.file, false)
+const tester = new WebTester({targetFiles: ['index'], testsLocation: ''})
 
-if (process.send) {
-    process.send(res)
-    tester.finish().then()
-} else {
-    console.log(JSON.stringify(res, null, '\t'))
-}
+tester
+    .testSubmission(path.resolve(program.file), false)
+    .then((res) => {
+        if (process.send) {
+            process.send(res)
+            return tester.finish()
+        } else {
+            console.log(JSON.stringify(res, null, '\t'))
+            process.exit(0)
+        }
+    })
+    .catch(_ => tester.finish())

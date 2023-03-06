@@ -1,15 +1,22 @@
 {
   "name": "website-tester",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
+  "bin": {
+    "test-web-submission": "lib/testSubmission.js"
+  },
   "scripts": {
     "test": "ts-mocha test/*.test.ts",
     "watch": "ts-mocha --reporter min -w test/*test.ts --watch-files test/*test.ts,src/**/*.ts",
     "coverage": "nyc yarn test && rm -r .nyc_output",
     "build": "tsc"
   },
+  "files": [
+    "src",
+    "lib"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
